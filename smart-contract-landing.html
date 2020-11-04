@@ -2,30 +2,30 @@
 <html dir="ltr" lang="en-US">
 	
 	<head>
-	<link href="http://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900" rel="stylesheet" type="text/css" />
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link href="http://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900" rel="stylesheet" type="text/css" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/custom.css" type="text/css" /> 
+		<link rel="stylesheet" href="css/dark.css" type="text/css" />
+		<link rel="stylesheet" href="css/animate.css" type="text/css" />
+		<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+		<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="css/style.css" type="text/css" />
-	<link rel="stylesheet" href="css/custom.css" type="text/css" /> 
-
-	<link rel="stylesheet" href="css/dark.css" type="text/css" />
-	<link rel="stylesheet" href="css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
-
-	<title>ESCL</title>
-
-</head>
+		<title>ESCL</title>
+	</head>
 
 <body class="stretched">
-	<div class="modal fade" id="modal-signin" tabindex="-1" aria-labelledby="modal-signin" aria-hidden="true">
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<div class="modal fade" id="modal-addnew" tabindex="-1" aria-labelledby="modal-addnew" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content bg-white p-4 p-md-5 rounded">
 				<h3 class="h2 font-weight-bolder mb-4">Add a New Voter</h3>
 				<form class="row mb-0" action="#" method="post" enctype="multipart/form-data">
 					<div class="col-12 form-group mb-4">
-						<input type="text" name="post-eutheriumid" id="ethid" class="form-control" placeholder="Enter Eutherium ID"/>
+						<input type="text" name="post-ethereumid" id="ethid" class="form-control" placeholder="Enter Ethereum ID"/>
 					</div>
 					<div class="clear"></div>
 					<div class="col-12 form-group mb-4">
@@ -43,39 +43,41 @@
 			</div>
 		</div>
 	</div>
-	
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<div id="wrapper" class="clearfix">
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<section id="slider" class="slider-element min-vh-md-100 py-4 include-header" style="background: #FFF url('images/hero-gradient-1.svg') repeat top center; background-size: cover;">
 			<div class="slider-inner">
 				<div class="vertical-middle slider-element-fade">
 					<div class="container text-center py-5">
 						<div class="emphasis-title mb-2">
-							<h5 class="text-uppercase ls3 font-weight-bolder mb-0" id="hiuser" style="font-size: 30px;"></h5>
-
+							<h5 class="ls3 font-weight-bolder mb-0" id="hi" style="font-size: 20px;"></h5><br><br>
 							<h4 class="text-uppercase ls3 font-weight-bolder mb-0">East West College of Engineering, FDP</h4>
 							<h1>
 								<span id="oc-images" class="owl-carousel image-carousel carousel-widget" data-items="1" data-margin="0" data-animate-in="fadeInUp">
-									<div id="argument" class="oc-item gradient-text gradient-blue-purple" style="font-size: 100px;"></div>
+									<div id="argument" class="oc-item gradient-text gradient-blue-purple text-uppercase" style="font-size: 100px;"></div>
 								</span>
 							</h1>
 							<h5 class="text-uppercase ls3 font-weight-bolder mb-0" id="ballotstatus" style="font-size: 55px;"></h5>
-							<p class="mb-5 lead text-black-50 font-weight-extralight" id="votesdetails"></p>
 						</div>
 						<div class="mx-auto"  style="max-width: 600px">
 							<button type="button" name="submit" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-green" id="true">✅ TRUE</button>
 							<button type="button" name="submit" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-red" id="false">❌ FALSE</button>
 							<br><br>
-							<p class="mb-5 lead text-black-50 font-weight-medium" id="contractdetails"></p>
-						<a id="refresh" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-orange">🔄 Refresh</a>
+							<p class="lead text-black-50 font-normal" id="totalvotes"></p>
+							<p class="lead text-black-50 font-normal" id="totalvoters"></p>
+							<a target="_blank" href="https://rinkeby.etherscan.io/address/0xcde1e7f57f934f49be6db79d78d1e265c6878cbd"><p class="lead text-black-50 font-normal" id="offladdr"></p></a>
+							<p class="lead text-black-50 font-normal" id="admin-id"></p>
 
+							<a id="refresh" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-purple">🔄 Refresh</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<div class="clear"></div>
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<section id="content">
 			<div class="section bg-transparent py-5">
 			
@@ -83,20 +85,20 @@
 					<div class="row align-items-end mb-5">
 						<div class="col-lg-5 offset-lg-1">
 							<h3 class="text-uppercase ls3 font-weight-bolder mb-0">Administrative Functions</h3>
-							<p>If you are the Contract Administrator, Please Perform the Following Functions so the Smart Contract could operate as required</p>
 						</div>
 					</div>
 
 					<a href="" id="startvote" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-green">⏳ Start Vote</a>
-					<a href="#" id="add-voter"data-toggle="modal" data-target="#modal-signin" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0">➕ Add a new Voter</a>
+					<a href="#" id="add-voter" data-toggle="modal" data-target="#modal-addnew" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0">➕ Add a new Voter</a>
 					<a href="#wrapper" id="dovote" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0">🗳 Do Vote</a>
 					<a href="#" id="stopvote" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-red">🛑 End Vote</a>
 
 				</div>
 			</div>
 		</section>
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 	</div>
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<footer id="footer" class="dark" style="background-color: #101010;">
 		<div class="container">
 			<div class="footer-widgets-wrap  m-0">
@@ -116,15 +118,14 @@
 			</div>
 		</div>
 	</footer>
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<div id="gotoTop" class="bg-white text-dark rounded-circle shadow">↑</div>
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<script src="js/jquery.js"></script>
 	<script src="js/plugins.min.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-
-
+	<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<script>
 		let state = 0
@@ -161,9 +162,8 @@
 		}
 		
 		web3.eth.getAccounts(function (error, accounts) {
-			console.log('YOUR AVAILABLE ACCOUNTS ARE: ')
-			console.log(accounts)
 			web3.eth.defaultAccount = accounts[0]
+			$('#hi').append("Hello, (" + web3.eth.defaultAccount + ')')
 		})
 
 		var ballotContract = web3.eth.contract([{ "inputs": [{ "internalType": "string", "name": "_ballotOfficialName", "type": "string" }, { "internalType": "string", "name": "_proposal", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voteDone", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "finalResult", "type": "uint256" }], "name": "voteEnded", "type": "event" }, { "anonymous": false, "inputs": [], "name": "voteStarted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voterAdded", "type": "event" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "_voterAddress", "type": "address" }, { "internalType": "string", "name": "_voterName", "type": "string" }], "name": "addVoter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "bool", "name": "_choice", "type": "bool" }], "name": "doVote", "outputs": [{ "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "endVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "finalResult", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "proposal", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "startVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [{ "internalType": "enum Ballot.State", "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVote", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVoter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "voterRegister", "outputs": [{ "internalType": "string", "name": "voterName", "type": "string" }, { "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }])
@@ -174,15 +174,15 @@
 				else console.log(err)
 			})
 			ballot.totalVoter(function (err, res) {
-				if (!err) { console.log('totalVoter; '); console.log(res) }
+				if (!err) { console.log('totalVoter; '); console.log(res); $('#totalvoters').append('Total Number of Voters: ' + res) }
 				else console.log(err)
 			})
 			ballot.totalVote(function (err, res) {
-				if (!err) { console.log('totalVote; '); console.log(res) }
+				if (!err) { console.log('totalVote; '); console.log(res); $('#totalvotes').append('Total Number of Votes: ' + res) }
 				else console.log(err)
 			})
 			ballot.ballotOfficialAddress(function (err, res) {
-				if (!err) { console.log('ballotOfficialAddress; '); console.log(res) }
+				if (!err) { console.log('ballotOfficialAddress; '); console.log(res); $('#admin-id').append('Admin-ID: ' + res) }
 				else console.log(err)
 			})
 			ballot.ballotOfficialName(function (err, res) {
@@ -200,7 +200,8 @@
 		}
 
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '0x5F98EFc67Fcd23C2bEb9727c882A518d741281a8';
+		var contractAddress = '0xcDE1e7F57f934f49BE6Db79D78D1E265C6878CBD';
+		$('#offladdr').append('Ballot Address: ' + contractAddress)
 		var ballot = ballotContract.at(contractAddress);
 		refreshData()
 		
@@ -246,18 +247,13 @@
 				else console.log(err)
 			})
 		})
-
+		
 		// jQUERY HTML INJECTION
-			$('#ballotstatus').append("VOTING HAS NOT YET STARTED")
-
-		$("#contractdetails").append("Administrator Ethereum ID:" + $(ballot.ballotOfficialAddress) + " <br> Contract ID: "+$(contractAddress));
-		$("#votesdetails").append("Total Number of Voters: " + $(ballot.totalVoter) + "<br> Total Number of Votes Registered: " + $(ballot.totalVote));
-
-
-
+		$('#ballotstatus').html("VOTING HAS NOT YET STARTED")
 
 
 		$('#refresh').click(function(){
+			location.reload()
 			refreshData()
 		})
 

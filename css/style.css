@@ -2226,18 +2226,18 @@ body:not(.device-touch) .button.button-full strong {
 }
 
 .button-purple {
-  background-color: #5d4157;
+  background-color: #4a00e0;
 }
 .button-3d.button-purple:hover,
 .button-reveal.button-purple:hover,
 .button-border.button-purple:hover,
 .button-border.button-purple.button-fill::before {
-  background-color: #5d4157 !important;
+  background-color: #4a00e0 !important;
 }
 
 .button-border.button-purple {
-  color: #5d4157;
-  border-color: #5d4157;
+  color: #4a00e0;
+  border-color: #4a00e0;
 }
 
 .button-leaf {
@@ -2286,18 +2286,18 @@ body:not(.device-touch) .button.button-full strong {
 }
 
 .button-blue {
-  background-color: #1265a8;
+  background-color: #8e2de2;
 }
 .button-3d.button-blue:hover,
 .button-reveal.button-blue:hover,
 .button-border.button-blue:hover,
 .button-border.button-blue.button-fill::before {
-  background-color: #1265a8 !important;
+  background-color: #8e2de2 !important;
 }
 
 .button-border.button-blue {
-  color: #1265a8;
-  border-color: #1265a8;
+  color: #8e2de2;
+  border-color: #8e2de2;
 }
 
 .button-amber {
