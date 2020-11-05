@@ -66,7 +66,7 @@
 							<br><br>
 							<p class="lead text-black-50 font-normal" id="totalvotes"></p>
 							<p class="lead text-black-50 font-normal" id="totalvoters"></p>
-							<a target="_blank" href="https://rinkeby.etherscan.io/address/0xcde1e7f57f934f49be6db79d78d1e265c6878cbd"><p class="lead text-black-50 font-normal" id="offladdr"></p></a>
+							<a target="_blank" id="etherscan"><p class="lead text-black-50 font-normal" id="offladdr"></p></a>
 							<p class="lead text-black-50 font-normal" id="admin-id"></p>
 
 							<a id="refresh" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-purple">🔄 Refresh</a>
@@ -163,7 +163,7 @@
 		
 		web3.eth.getAccounts(function (error, accounts) {
 			web3.eth.defaultAccount = accounts[0]
-			$('#hi').append("Hello, (" + web3.eth.defaultAccount + ')')
+			$('#hi').append('Hello, ' + $('') + '! (' + web3.eth.defaultAccount + ')')
 		})
 
 		var ballotContract = web3.eth.contract([{ "inputs": [{ "internalType": "string", "name": "_ballotOfficialName", "type": "string" }, { "internalType": "string", "name": "_proposal", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voteDone", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "finalResult", "type": "uint256" }], "name": "voteEnded", "type": "event" }, { "anonymous": false, "inputs": [], "name": "voteStarted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voterAdded", "type": "event" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "_voterAddress", "type": "address" }, { "internalType": "string", "name": "_voterName", "type": "string" }], "name": "addVoter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "bool", "name": "_choice", "type": "bool" }], "name": "doVote", "outputs": [{ "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "endVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "finalResult", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "proposal", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "startVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [{ "internalType": "enum Ballot.State", "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVote", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVoter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "voterRegister", "outputs": [{ "internalType": "string", "name": "voterName", "type": "string" }, { "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }])
@@ -194,25 +194,22 @@
 				else console.log(err)
 			})
 			ballot.finalResult(function (err, res) {
-				if (!err) { console.log('finalresult; ', res);/* console.log(res) */ }
+				if (!err) { console.log('finalresult '); console.log(res) }
 				else console.log(err)
 			})
 		}
-
+		
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '0xcDE1e7F57f934f49BE6Db79D78D1E265C6878CBD';
+		var contractAddress = '0x3A6D6b1c97b5E84229a53920f33fC66C3b66B9Fb';
 		$('#offladdr').append('Ballot Address: ' + contractAddress)
+		$('#etherscan').attr('href','https://rinkeby.etherscan.io/address/'+contractAddress)
 		var ballot = ballotContract.at(contractAddress);
 		refreshData()
-		
-		// console.log('YOUR BALLOT FILE DETAILS: ');
-		// console.log(ballot);
-		
 
 		// STARTVOTE()
 		$('#startvote').click(function() {
 			ballot.startVote((err, res) => {
-				if (!err) { console.log('VOTING HAS BEGUN'); $('#ballotstatus').append("VOTING HAS STARTED, NO MORE VOTERS CAN BE ADDED") }
+				if (!err) { document.getElementById("ballotstatus").innerHTML = "VOTING HAS STARTED" }
 				else console.log(err)
 			})
 		})
@@ -229,13 +226,13 @@
 		// DOVOTE()
 		$('#true').click(function() {
 			ballot.doVote(true, (err, res) => {
-				if (!err) { console.log('VOTED TRUE') }
+				if (!err) { console.log('YOU HAVE VOTED') }
 				else console.log(err)
 			})
 		})
 		$('#false').click(function() {
 			ballot.doVote(false, (err, res) => {
-				if (!err) { console.log('VOTED FALSE') }
+				if (!err) { console.log('YOU HAVE VOTED') }
 				else console.log(err)
 			})
 		})
@@ -243,14 +240,11 @@
 		// ENDVOTE()
 		$('#stopvote').click(function() {
 			ballot.endVote((err, res) => {
-				if (!err) { console.log('VOTING HAS ENDED'); $('#ballotstatus').append("VOTING HAS ENDED") }
+				if (!err) { $('#ballotstatus').html("VOTING HAS ENDED") }
 				else console.log(err)
 			})
 		})
 		
-		// jQUERY HTML INJECTION
-		$('#ballotstatus').html("VOTING HAS NOT YET STARTED")
-
 
 		$('#refresh').click(function(){
 			location.reload()
