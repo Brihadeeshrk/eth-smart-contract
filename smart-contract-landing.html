@@ -61,8 +61,8 @@
 							<h5 class="text-uppercase ls3 font-weight-bolder mb-0" id="ballotstatus" style="font-size: 55px;"></h5>
 						</div>
 						<div class="mx-auto"  style="max-width: 600px">
-							<button type="button" name="submit" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-black" id="true">TRUE</button>
-							<button type="button" name="submit" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-black" id="false">FALSE</button>
+							<button type="button" name="submit" class="text-uppercase button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-black" id="true">TRUE</button>
+							<button type="button" name="submit" class="text-uppercase button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-black" id="false">FALSE</button>
 							<br><br>
 							<p class="lead text-black-50 font-normal" id="totalvotes"></p>
 							<p class="lead text-black-50 font-normal" id="totalvoters"></p>
@@ -168,7 +168,330 @@
 			$('#userether').attr('href', 'https://rinkeby.etherscan.io/address/'+ web3.eth.defaultAccount)
 		})
 
-		var ballotContract = web3.eth.contract([{ "inputs": [{ "internalType": "string", "name": "_ballotOfficialName", "type": "string" }, { "internalType": "string", "name": "_proposal", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voteDone", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "finalResult", "type": "uint256" }], "name": "voteEnded", "type": "event" }, { "anonymous": false, "inputs": [], "name": "voteStarted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voterAdded", "type": "event" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "_voterAddress", "type": "address" }, { "internalType": "string", "name": "_voterName", "type": "string" }], "name": "addVoter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "bool", "name": "_choice", "type": "bool" }], "name": "doVote", "outputs": [{ "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "endVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "finalResult", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "proposal", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "startVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [{ "internalType": "enum Ballot.State", "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVote", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVoter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "voterRegister", "outputs": [{ "internalType": "string", "name": "voterName", "type": "string" }, { "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }])
+		var ballotContract = web3.eth.contract([
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "voter",
+				"type": "address"
+			}
+		],
+		"name": "voteDone",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "finalResult",
+				"type": "string"
+			}
+		],
+		"name": "voteEnded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [],
+		"name": "voteStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "voter",
+				"type": "address"
+			}
+		],
+		"name": "voterAdded",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_voterAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_voterName",
+				"type": "string"
+			}
+		],
+		"name": "addVoter",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_choice",
+				"type": "bool"
+			}
+		],
+		"name": "doVote",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "voted",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "endVote",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "startVote",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_ballotOfficialName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_proposal",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_choice1",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_choice2",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ballotOfficialAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ballotOfficialName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "choice1",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "choice1Votes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "choice2",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "choice2Votes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "finalResultChoice",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "proposal",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "state",
+		"outputs": [
+			{
+				"internalType": "enum Ballot.State",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalVote",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalVoter",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "voterRegister",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "voterName",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "voted",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+])
 		
 		var refreshData = function(){
 			ballot.state(function (err, res) {
@@ -197,14 +520,22 @@
 				if (!err) { console.log('proposal; '); console.log(res); $('#argument').append(res)}
 				else console.log(err)
 			})
-			ballot.finalResult(function (err, res) {
+			ballot.finalResultChoice(function (err, res) {
 				if (!err) { console.log('finalresult '); console.log(res) }
+				else console.log(err)
+			})
+			ballot.choice1(function (err, res) {
+				if (!err) { console.log('choice1 '); console.log(res); $('#true').text(res) }
+				else console.log(err)
+			})
+			ballot.choice2(function (err, res) {
+				if (!err) { console.log('choice2 '); console.log(res); $('#false').text(res) }
 				else console.log(err)
 			})
 		}
 		
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '';
+		var contractAddress = '0x4897b3908181fF123CD1f00243ef6ac36af7171E';
 		$('#offladdr').append('🔗 Ballot Address: ' + contractAddress)
 		$('#etherscan').attr('href','https://rinkeby.etherscan.io/address/'+contractAddress)
 		var ballot = ballotContract.at(contractAddress);
