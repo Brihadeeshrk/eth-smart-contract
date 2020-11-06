@@ -51,7 +51,7 @@
 				<div class="vertical-middle slider-element-fade">
 					<div class="container text-center py-5">
 						<div class="emphasis-title mb-2">
-							<h5 class="ls3 font-weight-bolder mb-0" id="hi" style="font-size: 20px;"></h5><br><br>
+							<a target="_blank" id="userether" title="Click Here to visit your Etherscan Account"><h5 class="ls3 font-weight-bolder mb-0" id="hi" style="font-size: 20px;"></h5></a><br><br>
 							<h4 class="text-uppercase ls3 font-weight-bolder mb-0">East West College of Engineering, FDP</h4>
 							<h1>
 								<span id="oc-images" class="owl-carousel image-carousel carousel-widget" data-items="1" data-margin="0" data-animate-in="fadeInUp">
@@ -66,7 +66,7 @@
 							<br><br>
 							<p class="lead text-black-50 font-normal" id="totalvotes"></p>
 							<p class="lead text-black-50 font-normal" id="totalvoters"></p>
-							<a target="_blank" id="etherscan"><p class="lead text-black-50 font-normal" id="offladdr"></p></a>
+							<a target="_blank" id="etherscan" title="Click Here for the Ballot's Etherscan Account"><p class="lead text-black-50 font-normal" id="offladdr"></p></a>
 							<p class="lead text-black-50 font-normal" id="admin-id"></p>
 
 							<a id="refresh" class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-purple">🔄 Refresh</a>
@@ -145,6 +145,7 @@
 				},
 			});
 		});
+
 		var finalResult, totalVoter, totalVote, ballotOfficialAddress, ballotOfficialName, proposal
 		
 		const ethE = () => {
@@ -164,6 +165,7 @@
 		web3.eth.getAccounts(function (error, accounts) {
 			web3.eth.defaultAccount = accounts[0]
 			$('#hi').append('Hello, ' + $('') + '! (' + web3.eth.defaultAccount + ')')
+			$('#userether').attr('href', 'https://rinkeby.etherscan.io/address/'+ web3.eth.defaultAccount)
 		})
 
 		var ballotContract = web3.eth.contract([{ "inputs": [{ "internalType": "string", "name": "_ballotOfficialName", "type": "string" }, { "internalType": "string", "name": "_proposal", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voteDone", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "finalResult", "type": "uint256" }], "name": "voteEnded", "type": "event" }, { "anonymous": false, "inputs": [], "name": "voteStarted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "voter", "type": "address" }], "name": "voterAdded", "type": "event" }, { "constant": false, "inputs": [{ "internalType": "address", "name": "_voterAddress", "type": "address" }, { "internalType": "string", "name": "_voterName", "type": "string" }], "name": "addVoter", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "ballotOfficialName", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "internalType": "bool", "name": "_choice", "type": "bool" }], "name": "doVote", "outputs": [{ "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "endVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "finalResult", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "proposal", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "startVote", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "state", "outputs": [{ "internalType": "enum Ballot.State", "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVote", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalVoter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "voterRegister", "outputs": [{ "internalType": "string", "name": "voterName", "type": "string" }, { "internalType": "bool", "name": "voted", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }])
@@ -174,15 +176,17 @@
 				else console.log(err)
 			})
 			ballot.totalVoter(function (err, res) {
-				if (!err) { console.log('totalVoter; '); console.log(res); $('#totalvoters').append('Total Number of Voters: ' + res) }
+				if (!err) { console.log('totalVoter; '); console.log(res); $('#totalvoters').append('👩🏻👨🏻 Total Number of Voters: ' + res) }
 				else console.log(err)
 			})
 			ballot.totalVote(function (err, res) {
-				if (!err) { console.log('totalVote; '); console.log(res); $('#totalvotes').append('Total Number of Votes: ' + res) }
+				if (!err) { console.log('totalVote; '); console.log(res); $('#totalvotes').append('🗳 Total Number of Votes: ' + res) }
 				else console.log(err)
 			})
 			ballot.ballotOfficialAddress(function (err, res) {
-				if (!err) { console.log('ballotOfficialAddress; '); console.log(res); $('#admin-id').append('Admin-ID: ' + res) }
+				if (!err) { console.log('ballotOfficialAddress; '); console.log(res); $('#admin-id').append('👨🏻‍💼 Admin-ID: ' + res);
+				if(web3.eth.defaultAccount !== res) { alert("You Do Not have Sufficient Access")}
+			}
 				else console.log(err)
 			})
 			ballot.ballotOfficialName(function (err, res) {
@@ -200,8 +204,8 @@
 		}
 		
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '0x3A6D6b1c97b5E84229a53920f33fC66C3b66B9Fb';
-		$('#offladdr').append('Ballot Address: ' + contractAddress)
+		var contractAddress = '0x738b76d4D02E98145cC5828D91F40B34F4ae4dd2';
+		$('#offladdr').append('🔗 Ballot Address: ' + contractAddress)
 		$('#etherscan').attr('href','https://rinkeby.etherscan.io/address/'+contractAddress)
 		var ballot = ballotContract.at(contractAddress);
 		refreshData()
@@ -209,7 +213,11 @@
 		// STARTVOTE()
 		$('#startvote').click(function() {
 			ballot.startVote((err, res) => {
-				if (!err) { document.getElementById("ballotstatus").innerHTML = "VOTING HAS STARTED" }
+				if (!err) { document.getElementById("ballotstatus").innerHTML = "VOTING HAS STARTED";}
+				else console.log(err)
+			})
+			ballot.ballotOfficialAddress(function (err, res) {
+				if (!err) { if (web3.eth.defaultAccount !== res) { alert("You Do Not have Sufficient Access") } }
 				else console.log(err)
 			})
 		})
@@ -220,7 +228,10 @@
 				if (!err){ console.log('VOTER ADDED'); }
 				else console.log(err)
 			})
-
+			ballot.ballotOfficialAddress(function (err, res) {
+				if (!err) { if (web3.eth.defaultAccount !== res) { alert("You Do Not have Sufficient Access") } }
+				else console.log(err)
+			})
 		})
 
 		// DOVOTE()
@@ -241,6 +252,10 @@
 		$('#stopvote').click(function() {
 			ballot.endVote((err, res) => {
 				if (!err) { $('#ballotstatus').html("VOTING HAS ENDED") }
+				else console.log(err)
+			})
+			ballot.ballotOfficialAddress(function (err, res) {
+				if (!err) { if (web3.eth.defaultAccount !== res) { alert("You Do Not have Sufficient Access") } }
 				else console.log(err)
 			})
 		})
