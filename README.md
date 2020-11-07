@@ -11,4 +11,4 @@ And then, Type:
 
 ## node index.js
 
-after this, the webpage should be visible [here](http:localhost:8080)
+after this, the webpage should be visible at localhost:8080
