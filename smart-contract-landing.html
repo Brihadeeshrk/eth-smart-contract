@@ -57,8 +57,7 @@
 							<a target="_blank" id="userether" title="Click Here to visit your Etherscan Account">
 								<h5 class="ls3 font-weight-bolder mb-0" id="hi" style="font-size: 20px;"></h5>
 							</a><br><br>
-							<h4 class="text-uppercase ls3 font-weight-bolder mb-0">East West College of Engineering, FDP
-							</h4>
+							<h4 class="text-uppercase ls3 font-weight-bolder mb-0" id="state" style="font-size: 40px;"></h4>
 							<h1>
 								<span id="oc-images" class="owl-carousel image-carousel carousel-widget" data-items="1"
 									data-margin="0" data-animate-in="fadeInUp">
@@ -72,21 +71,29 @@
 						<div class="mx-auto" style="max-width: 600px">
 							<button type="button" name="submit"
 								class="button button-dark button-hero h-translatey-3 tf-ts button-reveal overflow-visible bg-dark text-right"
-								id="true"></button>
+								id="true">
+								<p id='choice1'></p>
+								</br>
+								<p id = "choice1vote" style="text-align: center; font-size: 30px;"></p>
+							</button>
 							<button type="button" name="submit"
 								class="button button-dark button-hero h-translatey-3 tf-ts button-reveal overflow-visible bg-dark text-right"
-								id="false"></button>
+								id="false">
+								<p id='choice2'></p>
+								</br>
+								<p id="choice2vote" style="text-align: center; font-size: 30px;"></p>
+							</button>
 							<br><br>
-							<p class="lead text-black-50 font-normal" id="totalvotes"></p>
-							<p class="lead text-black-50 font-normal" id="totalvoters"></p>
+							<p class="text-uppercase ls3 font-weight-bolder mb-0" style="font-size: 30px;" id="winner"></p><br>
+							<p class="lead text-black-50 font-weight-semibold" id="totalvoters"></p>
 							<a target="_blank" id="etherscan" title="Click Here for the Ballot's Etherscan Account">
-								<p class="lead text-black-50 font-normal" id="offladdr"></p>
+								<p class="lead text-black-50 font-weight-semibold" id="offladdr"></p>
 							</a>
-							<p class="lead text-black-50 font-normal" id="admin-id"></p>
+							<p class="lead text-black-50 font-weight-semibold" id="admin-id"></p>
 
-							<a id="refresh"
+							<button id="refresh"
 								class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-purple">🔄
-								Refresh</a>
+								Refresh</button>
 						</div>
 					</div>
 				</div>
@@ -105,16 +112,16 @@
 						</div>
 					</div>
 
-					<a href="" id="startvote"
+					<a id="startvote"
 						class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-green">⏳
 						Start Vote</a>
-					<a href="#" id="add-voter" data-toggle="modal" data-target="#modal-addnew"
+					<a id="add-voter" data-toggle="modal" data-target="#modal-addnew"
 						class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0">➕
 						Add a new Voter</a>
 					<a href="#wrapper" id="dovote"
 						class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0">🗳
 						Do Vote</a>
-					<a href="#" id="stopvote"
+					<a id="stopvote"
 						class="button button-large button-border rounded-sm font-weight-medium nott h-bg-alt ls0 ml-0 button-red">🛑
 						End Vote</a>
 
@@ -189,7 +196,7 @@
 
 		web3.eth.getAccounts(function (error, accounts) {
 			web3.eth.defaultAccount = accounts[0]
-			$('#hi').append('Hello, ' + $('') + '! (' + web3.eth.defaultAccount + ')')
+			$('#hi').text('Hello! (' + web3.eth.defaultAccount + ')')
 			$('#userether').attr('href', 'https://rinkeby.etherscan.io/address/' + web3.eth.defaultAccount)
 		})
 
@@ -197,20 +204,21 @@
 
 		var refreshData = function () {
 			ballot.state(function (err, res) {
-				if (!err) { console.log('THE STATE OF YOUR BALLOT IS; '); console.log(res) }
+				if (!err) { console.log('THE STATE OF YOUR BALLOT IS; '); console.log(res.c[0]); $('#state').text(getState(res.c[0]))}
 				else console.log(err)
 			})
 			ballot.totalVoter(function (err, res) {
-				if (!err) { console.log('totalVoter; '); console.log(res); $('#totalvoters').append('👩🏻👨🏻 Total Number of Voters: ' + res) }
+				if (!err) { console.log('totalVoter; '); console.log(res); $('#totalvoters').text('👩🏻👨🏻 Total Number of Voters: ' + res) }
 				else console.log(err)
 			})
 			ballot.totalVote(function (err, res) {
-				if (!err) { console.log('totalVote; '); console.log(res); $('#totalvotes').append('🗳 Total Number of Votes: ' + res) }
+				if (!err) { console.log('totalVote; '); console.log(res); }
 				else console.log(err)
 			})
 			ballot.ballotOfficialAddress(function (err, res) {
 				if (!err) {
-					console.log('ballotOfficialAddress; '); console.log(res); $('#admin-id').append('👨🏻‍💼 Admin-ID: ' + res);
+					defacc = res;
+					console.log('ballotOfficialAddress; '); console.log(res); $('#admin-id').text('👨🏻‍💼 Admin-ID: ' + res);
 				}
 				else console.log(err)
 			})
@@ -219,7 +227,7 @@
 				else console.log(err)
 			})
 			ballot.proposal(function (err, res) {
-				if (!err) { console.log('proposal; '); console.log(res); $('#argument').append(res) }
+				if (!err) { console.log('proposal; '); console.log(res); $('#argument').text(res) }
 				else console.log(err)
 			})
 			ballot.finalResultChoice(function (err, res) {
@@ -227,36 +235,70 @@
 				else console.log(err)
 			})
 			ballot.choice1(function (err, res) {
-				if (!err) { console.log('choice1 '); console.log(res); $('#true').append(res) }
+				if (!err) { console.log('choice1 '); console.log(res); $('#choice1').text(res) }
 				else console.log(err)
 			})
 			ballot.choice2(function (err, res) {
-				if (!err) { console.log('choice2 '); console.log(res); $('#false').append(res) }
+				if (!err) { console.log('choice2 '); console.log(res); $('#choice2').text(res) }
 				else console.log(err)
 			})
+			ballot.choice1Votes(function (err, res) {
+				if (!err) { console.log('choice1votes '); console.log(res); $('#choice1vote').text(res) }
+				else console.log(err)
+			})
+			ballot.choice2Votes(function (err, res) {
+				if (!err) { console.log('choice2votes '); console.log(res); $('#choice2vote').text(res) }
+				else console.log(err)
+			})
+			ballot.finalResultChoice(function (err, res) {
+				if (!err) { console.log('final result'); console.log(res); $('#winner').text("🏁 "+res) }
+				else console.log(err)
+			})
+			// ballot.voterRegister(web3.eth.defaultAccount, function (err, res) {
+			// 	if (!err) { console.log('voterRegister '); console.log(res);}
+			// 	else console.log(err)
+			// })
+		}
+
+		var getState = function(stateNum){
+			switch (stateNum) {
+				case 0:
+					return "Voting has not started yet";
+				case 1:
+					return "Voting time!! Let your choice be heard";
+				case 2:
+					return "Voting has ended";
+				default:
+					return "Please contact admin";
+			}
 		}
 
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '0x4897b3908181fF123CD1f00243ef6ac36af7171E';
-		$('#offladdr').append('🔗 Ballot Address: ' + contractAddress)
+		var contractAddress = '0xB7423310553c42CC15DB61D5eE5F73EE6Eb9B3dA';
+		$('#offladdr').text('🔗 Ballot Address: ' + contractAddress)
 		$('#etherscan').attr('href', 'https://rinkeby.etherscan.io/address/' + contractAddress)
 		var ballot = ballotContract.at(contractAddress);
+		console.log(web3.eth.defaultAccount)
 		refreshData()
 
 		// STARTVOTE()
 		$('#startvote').click(function () {
+			if (defacc !== web3.eth.defaultAccount) { 
+				alert("You Do Not have Sufficient Access") ;
+				return;
+			}
 			ballot.startVote((err, res) => {
 				if (!err) { document.getElementById("ballotstatus").innerHTML = "VOTING HAS STARTED"; }
-				else console.log(err)
-			})
-			ballot.ballotOfficialAddress(function (err, res) {
-				if (!err) { if (defacc !== res) { alert("You Do Not have Sufficient Access") } }
 				else console.log(err)
 			})
 		})
 
 		// ADDVOTER()
 		$('#addvoter').click(function () {
+			if (defacc !== web3.eth.defaultAccount) {
+				alert("You Do Not have Sufficient Access");
+				return;
+			}
 			ballot.addVoter($('#ethid').val(), $('#votername').val(), (err, res) => {
 				if (!err) { console.log('VOTER ADDED'); }
 				else console.log(err)
@@ -283,8 +325,12 @@
 
 		// ENDVOTE()
 		$('#stopvote').click(function () {
+			if (defacc !== web3.eth.defaultAccount) {
+				alert("You Do Not have Sufficient Access");
+				return;
+			}
 			ballot.endVote((err, res) => {
-				if (!err) { $('#ballotstatus').html("VOTING HAS ENDED") }
+				if (!err) { $('#ballotstatus').text("VOTING HAS ENDED") }
 				else console.log(err)
 			})
 			ballot.ballotOfficialAddress(function (err, res) {
@@ -294,7 +340,7 @@
 		})
 
 		$('#refresh').click(function () {
-			location.reload()
+			console.log('done')
 			refreshData()
 		})
 
