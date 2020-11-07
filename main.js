@@ -112,7 +112,7 @@ let state = 0
 		}
 
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '0x9017A321f07ea56AF216da9a69D585303B61CC24';
+		var contractAddress = '';
 		$('#offladdr').text('🔗 Ballot Address: ' + contractAddress)
 		$('#etherscan').attr('href', 'https://rinkeby.etherscan.io/address/' + contractAddress)
 		var ballot = ballotContract.at(contractAddress);
