@@ -1,14 +1,19 @@
 # Welcome to Your Ethereum Smart Contract
 
-After Cloning/ Downloading this Repository,
-Open Command Prompt in this Folder or Open Terminal on Mac
+## Requirements:
 
-Once the Terminal is Running, Type:
+1. NodeJS
+
+- Make sure you have NODE installed on your machine, if you dont, you can install it from [here](https://nodejs.org/en/)
+- Once You Have Node Installed, Download/ Clone this Repository onto your Local Machine.
+- Open Command Prompt/ Terminal and make this folder your CURRENT DIRECTORY
+- Once Terminal is Running, Type
 
 ## npm install
 
-And then, Type:
+- And then, Type
 
 ## node index.js
 
-after this, the webpage should be visible at localhost:8080
+You will NOT see any output after this, this means your project is currently running at http:localhost:8080
+To Stop the Terminal from Running, Hold CTRL + C
