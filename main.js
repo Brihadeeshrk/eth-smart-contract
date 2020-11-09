@@ -133,10 +133,6 @@ let state = 0
 
 		// ADDVOTER()
 		$('#addvoter').click(function () {
-			if (defacc !== web3.eth.defaultAccount) {
-				alert("You Do Not have Sufficient Access");
-				return;
-			}
 			ballot.addVoter($('#ethid').val(), $('#votername').val(), (err, res) => {
 				if (!err) { console.log('VOTER ADDED'); }
 				else console.log(err)
