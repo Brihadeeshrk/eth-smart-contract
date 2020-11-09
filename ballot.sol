@@ -70,7 +70,6 @@ contract Ballot {
     function addVoter(address _voterAddress, string memory _voterName)
         public
         inState(State.Created)
-        onlyOfficial
     {
         voter memory v;
         v.voterName = _voterName;
