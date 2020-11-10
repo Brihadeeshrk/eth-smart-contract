@@ -3,9 +3,9 @@
     Created By Brihadeesh R K, Student, MSRIT <1MS19IS030> with Aditya Gupta, Blockchain Developer
 */
 
-@media (min-width: 1440px) {
+@media (min-width: 1000px) {
   .container {
-    max-width: 1320px;
+    max-width: 1500px;
   }
 }
 :active,
