@@ -1,3 +1,4 @@
+
 let state = 0
 		// Owl Carousel Scripts
 		jQuery(window).on('pluginCarouselReady', function () {
@@ -112,7 +113,7 @@ let state = 0
 		}
 
 		// INSERT CONTRACT ID HERE
-		var contractAddress = '';
+		var contractAddress = '0x451AAD4DB4B2F64693F729a9Cffa5e62378133f2';
 		$('#offladdr').text('🔗 Ballot Address: ' + contractAddress)
 		$('#etherscan').attr('href', 'https://rinkeby.etherscan.io/address/' + contractAddress)
 		var ballot = ballotContract.at(contractAddress);
@@ -169,3 +170,5 @@ let state = 0
 			console.log('done')
 			refreshData()
 		})
+
+
