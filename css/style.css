@@ -3,11 +3,29 @@
     Created By Brihadeesh R K, Student, MSRIT <1MS19IS030> with Aditya Gupta, Blockchain Developer
 */
 
-@media (min-width: 1000px) {
+@media (min-width: 1440px) {
   .container {
     max-width: 1500px;
   }
 }
+@media only screen and (max-width: 600px) {
+  .container {max-width: 500px}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .container {max-width: 800px}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .container {max-width: 800px}
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+ .container {max-width: 1000px}
+} 
 :active,
 :focus {
   outline: none !important;
