@@ -24,7 +24,7 @@ contract Ballot {
     uint public choice1Votes = 0;
     uint public choice2Votes = 0;
  
-    mapping(uint => vote) private votes;
+    mapping(uint => vote) public votes;
     mapping(address => voter) public voterRegister;
  
     enum State { Created, Voting, Ended }
@@ -76,7 +76,6 @@ contract Ballot {
         v.voted = false;
         voterRegister[_voterAddress] = v;
         totalVoter++;
-        emit voterAdded(_voterAddress);
     }
  
     //declare voting starts now
@@ -86,7 +85,6 @@ contract Ballot {
         onlyOfficial
     {
         state = State.Voting;     
-        emit voteStarted();
     }
  
     //voters vote by indicating their choice (true/false)
@@ -113,7 +111,6 @@ contract Ballot {
             totalVote++;
             found = true;
         }
-        emit voteDone(msg.sender);
         return found;
     }
  
@@ -131,7 +128,5 @@ contract Ballot {
         } else {
             finalResultChoice = choice2;   
         }
-        
-        emit voteEnded(finalResultChoice);
     }
 }
