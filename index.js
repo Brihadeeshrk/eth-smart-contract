@@ -11,3 +11,4 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/smart-contract-landing.html'))
 })
 app.listen(8080)
+console.log('Started server at http://localhost:8080')
